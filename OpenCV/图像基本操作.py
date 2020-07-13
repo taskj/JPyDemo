@@ -1,4 +1,6 @@
 import cv2 #opencv默认读取的格式是BGR而非RGB
+import matplotlib.pyplot as plt
+import numpy as np
 
 def init():
     img = cv2.imread('cat.jpg')
@@ -8,7 +10,6 @@ def init():
     print(img.shape) #获取图像的H,W,C值，如转换成灰度图则不存在C值
     print(img.dtype) #获取图像的数据类型
 
-   
 '''
 保留BGR中的R通道,BG通道同理
 @img : openvc读取的图片对象
@@ -28,6 +29,7 @@ def saveR(img):
 def getBgr(img):
     b,g,r = cv2.split(img)
     print(b,g,r)
+
 
 '''
 还原图片颜色通道

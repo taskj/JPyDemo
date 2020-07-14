@@ -1,0 +1,7 @@
+adminer
+phpsysinfo
+phpmyadmin
+test
+admin
+login
+register

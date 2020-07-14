@@ -40,13 +40,26 @@ def multi_scan(url,threads,dic):
     #第一步读取字典文件
     #第二部确定读取的行数
     #第三部制作每一个线程读取的字典列表[[t1],[t2],[t3]]
+    result_list = []
     with open("dic.txt","r") as f:
-        dic_lists = f.readlines()
-        thread_line_num = math.ceil(len(dic_lists) / int(threads)) #向上取整线程数
+        dic_list = f.readlines()
+        if len(dic_list) % int(threads) == 0:
+            thread_read_line_num = int(len(dic_list) / int(threads))
+        else:
+            thread_read_line_num = math.ceil(len(dic_list) / int(threads))
         i = 0
-        for line in dic_lists:
+        temp_list = []
+        for line in dic_list:
             i = i + 1
-            
+            if i % thread_read_line_num == 0:
+                temp_list.append(line.strip())
+                result_list.append(temp_list)
+                temp_list = []
+            else:
+                temp_list.append(line.strip())
+
+    print(len(dic_list) % int(threads))
+
 
 
 

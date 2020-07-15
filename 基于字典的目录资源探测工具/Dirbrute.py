@@ -80,15 +80,17 @@ def multi_scan(url,threads,dic):
                     i = i + 1
             result_list.append(temp_list)
 
-
         for i in result_list:
             threads_list.append(threading.Thread(target=scan, args=(url,i)))
+        for t in threads_list:
+            t.start()
 
 def scan(url,dic):
     for line in dic:
         r = requests.get(url + "/" + line)
+        #输出扫描存在的目录
         if r.status_code == 200:
-            print(r.url + ":" + r.status_code)
+            print(r.url + ":" + str(r.status_code))
 
 
 

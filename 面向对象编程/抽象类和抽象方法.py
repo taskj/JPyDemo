@@ -10,3 +10,12 @@ class Person(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def sleep(self):
         pass
+
+    @abc.abstractmethod
+    def run(self):
+        pass
+
+if __name__ == '__main__':
+    #抽象类不能被实例化
+    lisi = Person()
+    lisi.run()

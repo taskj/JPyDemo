@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
+from tkinter.messagebox import *
+from fileoperator import *
 
 class MainGUI(Tk):
     def __init__(self):
@@ -7,7 +9,12 @@ class MainGUI(Tk):
         self.title("学生教师信息管理")
         self.geometry("1400x600+100+100")
         self.resizable(0,0)
-
+        
+        #实例化File类,把教师和学生信息读取到系统
+        self.file_info = Files()
+        self.student_all = self.file_info.list_student_all
+        self.teacher_all = self.file_info.list_teacher_all
+        print(self.student_all)
         #定义style
         self.Style01 = Style()
         self.Style01.configure("TLabel",font=("微软雅黑",14,"bold"),foreground="Navy")
@@ -15,7 +22,6 @@ class MainGUI(Tk):
         #学生和老师的标签
         self.label_student = Label(self,text="学生信息列表:")
         self.label_student.place(x=40,y=60)
-
         self.lable_teacher = Label(self,text="教师信息列表:")
         self.lable_teacher.place(x=720,y=60)
 
@@ -23,6 +29,10 @@ class MainGUI(Tk):
         self.student_gui()
         #添加老师表格
         self.teacher_gui()
+
+        # 自动加载学生和教师信息到表格
+        self.load_student_treeview()
+        self.load_teacher_treeview()
 
     def student_gui(self):
         #添加tree_view控件
@@ -76,6 +86,45 @@ class MainGUI(Tk):
         self.Tree_teacher.heading("mobile", text="手机号码")
 
         self.Tree_teacher.place(x=700, y=95)
+
+    def load_student_treeview(self):
+        #1 先把当前Treeview内容清空
+        for index in self.Tree_student.get_children():
+            self.Tree_student.delete(index)
+        #2 加载list中的数据
+        if len(self.student_all) == 0:
+            showinfo("系统消息","没有任何学生信息需要加载")
+        else:
+            for index in range(len(self.student_all)):
+                self.Tree_student.insert("",index,values=(
+                    self.student_all[index][0],
+                    self.student_all[index][1],
+                    self.student_all[index][2],
+                    self.student_all[index][6],
+                    self.student_all[index][4],
+                    self.student_all[index][5]
+                    )
+                )
+
+    def load_teacher_treeview(self):
+        # 1 先把当前Treeview内容清空
+        for index in self.Tree_teacher.get_children():
+            self.Tree_teacher.delete(index)
+        # 2 加载list中的数据
+        if len(self.teacher_all) == 0:
+            showinfo("系统消息", "没有任何教师信息需要加载")
+        else:
+            for index in range(len(self.teacher_all)):
+                self.Tree_teacher.insert("", index, values=(
+                    self.teacher_all[index][0],
+                    self.teacher_all[index][1],
+                    self.teacher_all[index][2],
+                    self.teacher_all[index][6],
+                    self.teacher_all[index][7],
+                    self.teacher_all[index][4]
+                )
+                                         )
+
 
 if __name__ == '__main__':
     main = MainGUI()

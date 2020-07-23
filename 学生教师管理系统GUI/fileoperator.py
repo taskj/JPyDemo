@@ -1,5 +1,3 @@
-import os
-
 class Files:
     def __init__(self):
 
@@ -11,6 +9,8 @@ class Files:
         self.list_student_all = []
         #定义老师存储所用的List = []
         self.list_teacher_all = []
+
+        self.read_from_file()
 
     def read_from_file(self):
         #读取学生信息
@@ -47,4 +47,4 @@ class Files:
 if __name__ == '__main__':
     file = Files()
     file.read_from_file()
-    print(file.list_teacher_all)
+    print(file.list_student_all)

@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter.messagebox import *
 from fileoperator import *
+from studentdetail import *
 
 class MainGUI(Tk):
     def __init__(self):
@@ -34,6 +35,10 @@ class MainGUI(Tk):
         self.load_student_treeview()
         self.load_teacher_treeview()
 
+        #双击表格某一行触发的事件
+        self.Tree_student.bind("<Double-1>",self.view_student)
+
+
     def student_gui(self):
         #添加tree_view控件
         self.Tree_student = Treeview(self,columns = ("sno","name","gender","profession","mobile","email"),show="headings",height=20)
@@ -65,7 +70,6 @@ class MainGUI(Tk):
         #删除按钮
         self.Button_del_student = Button(self,text="删除",width=10)
         self.Button_del_student.place(x=600,y=550)
-
 
     def teacher_gui(self):
         # 添加tree_view控件
@@ -124,6 +128,10 @@ class MainGUI(Tk):
                     self.teacher_all[index][4]
                 )
                                          )
+
+    def view_student(self,event):
+        #以查看的方式加载
+        detail = StudentDetail(1)
 
 
 if __name__ == '__main__':

@@ -4,10 +4,14 @@
 from basedetail import *
 
 class StudentDetail(BaseDetail):
-    def __init__(self):
+    def __init__(self,flag:int):
         super().__init__()
         #修改title
         self.Label_Title["text"] = "学生明细信息"
+
+        #接收flag值
+        self.flag = flag
+
         #修改style
         self.Style01.configure("TLabel",font=("微软雅黑",12),forground="Navy")
         #添加StudentDetail内容
@@ -54,6 +58,27 @@ class StudentDetail(BaseDetail):
         self.Label_study_time.place(x=100, y=390)
         self.Label_study_time = Entry(self.Pane_detail, font=("微软雅黑", 14, "bold"), width=10)
         self.Label_study_time.place(x=210, y=388)
+
+        #调用student_detail元素加载
+        self.setup_student_detail()
+
+        #根据flag值初始化窗口
+        self.load_gui_by_flag()
+
+    def setup_student_detail(self):
+        pass
+
+    def load_gui_by_flag(self):
+        if self.flag == 1:
+            #查看的窗口状态
+            self.Label_Title["text"] = "查看学生明细"
+        elif self.flag == 2:
+            #修改的窗口状态
+            self.Label_Title["text"] = "修改学生明细"
+        elif self.flag == 3:
+            #添加的窗口状态
+            self.Label_Title["text"] = "增加学生明细"
+
 
 if __name__ == '__main__':
     student = StudentDetail()
